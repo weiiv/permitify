@@ -90,9 +90,9 @@ configureEnvironment () {
     esac
   done
 
-  export APPLICATION_URL=${APPLICATION_URL:-http://localhost}
+  export APPLICATION_URL=${APPLICATION_URL:-http://${DOCKERHOST}}
   export THE_ORG_BOOK_API_URL=${THE_ORG_BOOK_API_URL:-http://tob-api:8080/api/v1}
-  export THE_ORG_BOOK_APP_URL=${THE_ORG_BOOK_APP_URL:-http://localhost:8080}
+  export THE_ORG_BOOK_APP_URL=${THE_ORG_BOOK_APP_URL:-http://${DOCKERHOST}:8080}
   export REDIS_SERVICE_NAME=${REDIS_SERVICE_NAME:-redis}
   
   # Hacky - we trim the length of the string by 1 then
@@ -271,11 +271,11 @@ generateSeeds() {
 }
 
 getLedgerRegistrationUrl() {
-  if [[ ("${LEDGER_URL}" == "http://${DOCKERHOST}:9000") && ("${DOCKERHOST}" != "localhost") ]]; then
-    _ledgerUrl="http://localhost:9000"  
-  else
+  #if [[ ("${LEDGER_URL}" == "http://${DOCKERHOST}:9000") && ("${DOCKERHOST}" != "localhost") ]]; then
+  #  _ledgerUrl="http://localhost:9000"  
+  #else
     _ledgerUrl="${LEDGER_URL}"
-  fi
+  #fi
 
   echo "${_ledgerUrl}/register"
 }
